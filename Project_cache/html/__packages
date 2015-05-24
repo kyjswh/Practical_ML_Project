@@ -1,0 +1,12 @@
+base
+knitr
+data.table
+dplyr
+lattice
+ggplot2
+caret
+rpart
+foreach
+iterators
+doMC
+randomForest
