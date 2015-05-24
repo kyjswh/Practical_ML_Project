@@ -2,7 +2,9 @@
 title: "Predicting Wellness of Exercises"
 author: "Zhengkan Yang"
 date: "May 19, 2015"
-output: html_document
+output:
+  html_document:
+    keep_md: TRUE        
 ---
 #Summary
 In this project, we examined the effects of exercise behaviors on the exercise qualities, using the data of measurements collected from wearable devices.  We applied two predictive algorithms-__decision tree__ and __random forest__, and finally decided to use __random forest__ with 13 variables resampled at each split as our final model, which has a cross-validation accuracy __0.99__.  
@@ -63,7 +65,7 @@ if (length(which(nsv$nzv)) > 0){
 ##Check response class balance
 Imbalance check in response variable is conducted to see if balancing technique such as undersampling/oversampling methods need to be applied before modeling.  
 As the result shows, there is not a huge imbalance among response levels. So we do not need to apply balancing methods.
-```{r check response balance}
+```{r CheckResponseBalance}
 training$classe <- factor(training$classe)
 res_percent <- training %>% group_by(classe) %>% summarise(Percentage = n()/nrow(training))
 ggplot(data=res_percent, aes(x = classe, y = Percentage)) + geom_bar(aes(fill = classe),stat='identity') + ggtitle('Percentage of exercise wellness levels') + xlab('Classe') + ylab('Percentage')
@@ -113,8 +115,8 @@ From the final results of these three models, random forest with 13 variables re
 
 The variable importance figure shows that the __roll_belt__, __yaw_belt__ and __pitch_forearm__ are the three most important variables determining the qualities of exercise.
 
-```{r Metric Visualization}
-load('.RData')
+```{r MetricVisualization}
+load('../.RData')
 res_rf <- rForest$results[1,]
 res_tree <- CTree$results[1,]
 metrics <- data.frame(Model=c('Random Forest','Decision Tree'),importance = rbind(res_rf[,2:5],res_tree[,2:5]))
